@@ -15,7 +15,17 @@ Suggests:
     knitr
 VignetteBuilder: knitr
 Collate:
+    'CropSlice.R'
     'Roi.R'
     'Spectrum.R'
+    'DataCube.R'
+    'GetAvgSliceFromImageCube.R'
+    'ReadDataCube.R'
     'SingleMSA.R'
+    'rotateMatrix180.R'
+    'flipMatrix.R'
+    'lookup.R'
+    'mirrorMatrix.R'
+    'plotDataCube.R'
     'plotSpectrum.R'
+    'rotateMatrix90.R'

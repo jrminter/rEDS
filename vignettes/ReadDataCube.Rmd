@@ -1,0 +1,62 @@
+---
+title: "Read Data Cube"
+author: "John Minter"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Here we want to read a data cube from the example data. Because of R's
+limits on gzip, we need to copy manually copy and unzip the file from:
+
+```{r}
+strFile <- system.file("extdata", "qm-04135-SBR-84.tar.gz", package = "rEDS")
+strFile
+```
+
+to `$TEMP/rEDS` and unzip it.
+
+
+## Set up a work directory and make sure the compressed file exists.
+
+```{r, tidy=TRUE}
+oldWd <- getwd()
+newWd <- Sys.getenv("TEMP")
+newWd <- gsub("\\\\","/", newWd)
+newWd <- paste0(newWd,'/rEDS/')
+setwd(newWd)
+list.files(pattern="*.rpl")
+```
+
+## Try to read
+
+```{r, tidy=TRUE, message=FALSE, warning=FALSE}
+library(rEDS)
+rplFile <- paste0(newWd,"qm-04135-SBR-84.rpl")
+rplFile
+cube <- ReadDataCube(rplFile, bOpenExampleSpc = FALSE,
+                     exSpecFile="", data.what="integer",
+                     record.by.image=TRUE)
+  
+str(cube)
+
+```
+
+Now let's try to plot
+
+```{r, fig.width=7}
+
+plot(cube, ch=20)
+
+```
+
+
+
+Now let's set the directory back
+
+```{r}
+setwd(oldWd)
+```
