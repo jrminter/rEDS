@@ -37,7 +37,7 @@ list.files(pattern="*.rpl")
 library(rEDS)
 rplFile <- paste0(newWd,"qm-04135-SBR-84.rpl")
 rplFile
-cube <- ReadDataCube(rplFile, bOpenExampleSpc = FALSE,
+cube <- readDataCube(rplFile, bOpenExampleSpc = FALSE,
                      exSpecFile="", data.what="integer",
                      record.by.image=TRUE)
   

@@ -11,7 +11,7 @@
 #' @include rotateMatrix180.R
 #'
 #' @export
-flip.matrix <- function(x) {
-  xx <- mirror.matrix(rotate180.matrix(x))
+flipMatrix <- function(x) {
+  xx <- mirrorMatrix(rotateMatrix180(x))
   return(xx)
 }

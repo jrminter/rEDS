@@ -1,4 +1,4 @@
-#' mirror.matrix
+#' mirrorMatrix
 #' 
 #' From http://www1.maths.lth.se/help/R/image/
 #'
@@ -9,7 +9,7 @@
 #' @keywords keywords
 #'
 #' @export
-mirror.matrix <- function(x) {
+mirrorMatrix <- function(x) {
   xx <- as.data.frame(x)
   xx <- rev(xx)
   xx <- as.matrix(xx)

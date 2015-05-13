@@ -8,6 +8,7 @@ Description: Process X-ray EDS hyperspectral data frames and spectra
 Depends:
     R (>= 3.2.0),
     tcltk,
+    rtiff,
     methods
 License: GPL (>=2)
 LazyData: true
@@ -15,17 +16,25 @@ Suggests:
     knitr
 VignetteBuilder: knitr
 Collate:
-    'CropSlice.R'
     'Roi.R'
     'Spectrum.R'
     'DataCube.R'
-    'GetAvgSliceFromImageCube.R'
-    'ReadDataCube.R'
-    'SingleMSA.R'
+    'cropSlice.R'
     'rotateMatrix180.R'
     'flipMatrix.R'
+    'getAvgSliceFromImageCube.R'
+    'getChanInt.R'
+    'getSumSliceFromImageCube.R'
+    'imageDataCube.R'
     'lookup.R'
     'mirrorMatrix.R'
+    'rotateMatrix90.R'
+    'makeImageFromAvgSlice.R'
+    'makeAvgSlicePlots.R'
+    'makeAvgSliceTiff.R'
     'plotDataCube.R'
     'plotSpectrum.R'
-    'rotateMatrix90.R'
+    'readDataCube.R'
+    'rsPlotPdf.R'
+    'rsPlotPng.R'
+    'singleMSA.R'

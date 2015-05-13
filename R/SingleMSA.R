@@ -1,4 +1,4 @@
-#' SingleMSA
+#' singleMSA
 #'
 #' Read a single spectrum in the MSA file format from a file and
 #' return a Spectrum object.
@@ -16,7 +16,7 @@
 #'
 #' @export
 #' @include Spectrum.R
-SingleMSA <- function(spec="", probecur=1.0){
+singleMSA <- function(spec="", probecur=1.0){
   if(nchar(spec) < 1){
     spec = tk_choose.files()
   }

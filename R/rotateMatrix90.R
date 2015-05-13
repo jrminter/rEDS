@@ -1,4 +1,4 @@
-#' rotate90.matrix
+#' rotateMatrix90
 #'
 #' Rotate a matrix 90 degrees clockwise.
 #'
@@ -14,7 +14,7 @@
 #'
 #' @export
 #'
-rotate90.matrix <- function(x) {
-  a <- t(mirror.matrix(x))
+rotateMatrix90 <- function(x) {
+  a <- t(mirrorMatrix(x))
   return(a)
 }

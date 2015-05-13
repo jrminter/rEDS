@@ -1,4 +1,4 @@
-#' GetAvgSliceFromImageCube
+#' getAvgSliceFromImageCube
 #'
 #' Get an average slice from a vector of channels in  a  \code{DataCube} object
 #'
@@ -15,7 +15,7 @@
 #' @include DataCube.R
 #'
 #' @export
-GetAvgSliceFromImageCube <- function(x, ch, debug=FALSE){
+getAvgSliceFromImageCube <- function(x, ch, debug=FALSE){
   if(debug){
     print(dim(x@data))
     print(ch)

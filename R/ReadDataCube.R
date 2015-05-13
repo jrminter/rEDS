@@ -1,4 +1,4 @@
-#' ReadDataCube
+#' readDataCube
 #'
 #' Read in a hyperspectral data cube in the Lispix .raw/.rpl file format.
 #' From Jeff Davis at NIST
@@ -24,7 +24,7 @@
 #' @include DataCube.R
 #'
 #' @export
-ReadDataCube <- function(rplFile="",
+readDataCube <- function(rplFile="",
                          bOpenExampleSpc = FALSE,
                          exSpecFile="",
                          data.what="integer",
@@ -61,7 +61,7 @@ ReadDataCube <- function(rplFile="",
     if(nchar(exSpecFile) < 1){
       exSpecFile = tk_choose.files(caption="Choose MSA File")
     }
-    myexample <- SingleMSA(exSpecFile)
+    myexample <- singleMSA(exSpecFile)
   }
   final <- new("DataCube",
                data=Data,

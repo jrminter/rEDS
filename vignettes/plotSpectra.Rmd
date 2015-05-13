@@ -26,7 +26,7 @@ Then we create a Spectrum object using the `SingleMSA` function.
 ```{r, message=FALSE}
 library(rEDS)
 
-spc <- SingleMSA(spec=strFile, probecur=2.5)
+spc <- singleMSA(spec=strFile, probecur=2.5)
 
 str(spc)
 ```

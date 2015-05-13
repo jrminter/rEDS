@@ -1,4 +1,4 @@
-#' rotate180.matrix
+#' rotateMatrix180
 #' 
 #' Rotate a matrix 180 degrees clockwise.
 #' 
@@ -11,7 +11,7 @@
 #' @keywords keywords
 #'
 #' @export
-rotate180.matrix <- function(x) { 
+rotateMatrix180 <- function(x) { 
   xx <- rev(x)
   dim(xx) <- dim(x)
   return(xx)
