@@ -1,8 +1,13 @@
 Package: rEDS
-Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph)
-Depends: R (>= 3.2.0)
-License: What license is it under?
+Title: Process X-ray EDS spectra
+Version: 0.0.0.90
+Authors@R: person("Minter", "John", email= "jrminter@gmail.com", role = c("aut", "cre"))
+Maintainer: John Minter <jrminter@gmail.com>
+Description: Process X-ray EDS hyperspectral data frames and spectra
+    with the aid of R S4 classes. This will eventually replace rXEDS.
+Depends: R (>= 3.2.0),
+    rtiff
+License: GPL (>=2)
 LazyData: true
+Suggests: knitr
+VignetteBuilder: knitr
