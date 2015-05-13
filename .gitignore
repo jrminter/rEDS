@@ -1,3 +1,6 @@
 .Rproj.user
 .Rhistory
 .RData
+inst/doc
+# don't track Rd files
+man/*.Rd

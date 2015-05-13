@@ -1,0 +1,40 @@
+---
+title: "Plot MSA Spectra"
+author: "John Minter"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Describe an MSA spectrum....
+
+
+## Load a spectrum
+
+First we get our exemplar file.
+
+```{r}
+strFile <- system.file("extdata", "Benitoite.msa", package = "rEDS")
+strFile
+```
+
+Then we create a Spectrum object using the `SingleMSA` function.
+
+```{r, message=FALSE}
+library(rEDS)
+
+spc <- SingleMSA(spec=strFile, probecur=2.5)
+
+str(spc)
+```
+
+and now we can plot the spectrum.
+
+```{r, fig.width=7}
+
+plot(spc, maxEnergy=10000, doLog=TRUE)
+
+```

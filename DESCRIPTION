@@ -5,9 +5,17 @@ Authors@R: person("Minter", "John", email= "jrminter@gmail.com", role = c("aut",
 Maintainer: John Minter <jrminter@gmail.com>
 Description: Process X-ray EDS hyperspectral data frames and spectra
     with the aid of R S4 classes. This will eventually replace rXEDS.
-Depends: R (>= 3.2.0),
-    rtiff
+Depends:
+    R (>= 3.2.0),
+    tcltk,
+    methods
 License: GPL (>=2)
 LazyData: true
-Suggests: knitr
+Suggests:
+    knitr
 VignetteBuilder: knitr
+Collate:
+    'Roi.R'
+    'Spectrum.R'
+    'SingleMSA.R'
+    'plotSpectrum.R'
