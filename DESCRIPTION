@@ -1,6 +1,6 @@
 Package: rEDS
 Title: Process X-ray EDS spectra
-Version: 0.0.0.95
+Version: 0.0.0.96
 Authors@R: person("Minter", "John", email= "jrminter@gmail.com", role = c("aut", "cre"))
 Maintainer: John Minter <jrminter@gmail.com>
 Description: Process X-ray EDS hyperspectral data frames and spectra
@@ -21,6 +21,7 @@ Collate:
     'Spectrum.R'
     'DataCube.R'
     'GetAvgSliceFromImageCube.R'
+    'GetMaxPixSpectrumFromImageCube.R'
     'GetMeanSpectrumFromImageCube.R'
     'ReadDataCube.R'
     'SingleMSA.R'
