@@ -1,6 +1,6 @@
 #' cropSlice
 #'
-#' Crop a slide (matrix) to remove undesired regions. helpful to
+#' Crop a slice (matrix) to remove undesired regions. Helpful to
 #' process partially empty data cubes from Oxford
 #'
 #' @param slice Input matrix (slice)

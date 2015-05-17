@@ -21,6 +21,7 @@ Collate:
     'Spectrum.R'
     'DataCube.R'
     'GetAvgSliceFromImageCube.R'
+    'GetMeanSpectrumFromImageCube.R'
     'ReadDataCube.R'
     'SingleMSA.R'
     'rotateMatrix180.R'
