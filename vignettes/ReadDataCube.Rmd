@@ -13,7 +13,7 @@ Here we want to read a data cube from the example data. Because of R's
 limits on gzip, we need to copy manually copy and unzip the file from:
 
 ```{r}
-strFile <- system.file("extdata", "qm-04135-SBR-84.tar.gz", package = "rEDS")
+strFile <- system.file("extdata", "qm-04360-Al-200nm-in-Cu-20-kV-NM3.tar.gz", package = "rEDS")
 strFile
 ```
 
@@ -35,7 +35,7 @@ list.files(pattern="*.rpl")
 
 ```{r, tidy=TRUE, message=FALSE, warning=FALSE}
 library(rEDS)
-rplFile <- paste0(newWd,"qm-04135-SBR-84.rpl")
+rplFile <- paste0(newWd,"qm-04360-Al-200nm-in-Cu-20-kV-NM3.rpl")
 rplFile
 cube <- readDataCube(rplFile, bOpenExampleSpc = FALSE,
                      exSpecFile="", data.what="integer",
@@ -49,7 +49,7 @@ Now let's try to plot
 
 ```{r, fig.width=7}
 
-plot(cube, ch=20)
+plot(cube, ch=206)
 
 ```
 
