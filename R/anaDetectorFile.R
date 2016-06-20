@@ -91,7 +91,7 @@ anaDetectorFile <- function(csvPath, detName, bVerbose=FALSE,
   sMuMn <- sprintf("mean: %.2f", muMn)
   dmn <- dmn + geom_hline(aes(yintercept=muMn),
                                       colour='blue', size=1)
-  dmn <- dmn + annotate("text", x=df$date[nr-labOffMn], y=muMn+0.01,
+  dmn <- dmn + annotate("text", x=df$date[nr-labOffMn], y=muMn+0.1,
                         label =sMuMn, colour='blue')
   # print(dmn)
 
