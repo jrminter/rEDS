@@ -20,7 +20,7 @@
 #' @keywords keywords
 #'
 #' @export
-rsPlotPdf <- function(pltFn, strFile, width=9, height=6, pts=12){
+rsPlotPdf <- function(pltFn, strFile, width=9, height=6, pts=14){
   Sys.sleep(0.1)
   old <- dev.cur()
   dev.next()
