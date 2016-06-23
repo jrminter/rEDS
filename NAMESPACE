@@ -2,6 +2,7 @@
 
 export(anaDetectorFile)
 export(cropSlice)
+export(edsDetectorMultiPlot)
 export(flipMatrix)
 export(getAvgSliceFromImageCube)
 export(getChanInt)
