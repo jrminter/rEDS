@@ -1,6 +1,6 @@
 Package: rEDS
 Title: Process X-ray EDS spectra
-Version: 0.0.0.97
+Version: 0.0.1.00
 Authors@R: person("Minter", "John", email= "jrminter@gmail.com", role = c("aut", "cre"))
 Maintainer: John Minter <jrminter@gmail.com>
 Description: Process X-ray EDS hyperspectral data frames and spectra
@@ -9,6 +9,7 @@ Depends:
     R (>= 3.2.0),
     tcltk,
     rtiff,
+    ggplot2,
     methods
 License: GPL (>=2)
 LazyData: true
@@ -25,6 +26,8 @@ Collate:
     'GetMeanSpectrumFromImageCube.R'
     'ReadDataCube.R'
     'SingleMSA.R'
+    'edsDetectorMultiGgplot.R'
+    'edsDetectorMultiPlot.R'
     'rotateMatrix180.R'
     'flipMatrix.R'
     'getChanInt.R'
