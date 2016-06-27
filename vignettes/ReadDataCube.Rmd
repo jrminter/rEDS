@@ -27,6 +27,7 @@ oldWd <- getwd()
 newWd <- Sys.getenv("TEMP")
 newWd <- gsub("\\\\","/", newWd)
 newWd <- paste0(newWd,'/rEDS/')
+# print(newWd)
 setwd(newWd)
 list.files(pattern="*.rpl")
 ```
