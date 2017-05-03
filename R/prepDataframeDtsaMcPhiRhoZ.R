@@ -50,7 +50,7 @@ prepDataframeDtsaMcPhiRhoZ <- function(inDir, fName='PhiRhoZ.csv'){
   # print(head(x))
   df <- df[, -1]
   df$Max <- x
-  names(df)[1] <- "Z.\U00B5m"
+  names(df)[1] <- "Z.um"
   # reset the rownames and then return the dataframe.
   rownames(df) <- NULL
   return(df)
