@@ -25,18 +25,21 @@ to `$TEMP/rEDS` and unzip it.
 ```{r, tidy=TRUE}
 oldWd <- getwd()
 newWd <- Sys.getenv("TEMP")
-newWd <- gsub("\\\\","/", newWd)
-newWd <- paste0(newWd,'/rEDS/')
-# print(newWd)
-setwd(newWd)
+mainDir <- gsub("\\\\","/", newWd)
+print(mainDir)
+subDir <- paste0(mainDir,'/rEDS')
+print(subDir)
+dir.create(subDir, showWarnings = FALSE)
+setwd(file.path(subDir))
 list.files(pattern="*.rpl")
+
 ```
 
 ## Try to read
 
 ```{r, tidy=TRUE, message=FALSE, warning=FALSE}
 library(rEDS)
-rplFile <- paste0(newWd,"qm-04360-Al-200nm-in-Cu-20-kV-NM3.rpl")
+rplFile <- paste0(subDir,"/qm-04360-Al-200nm-in-Cu-20-kV-NM3.rpl")
 rplFile
 cube <- readDataCube(rplFile, bOpenExampleSpc = FALSE,
                      exSpecFile="", data.what="integer",

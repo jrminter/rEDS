@@ -1,4 +1,4 @@
-#' Prepare a DTSA-II PhiRhoZ.csv file for plotting
+#' Prepare a DTSA-II Monte Carlo PhiRhoZ.csv file for plotting
 #'
 #' Use the results from DTSA-II Monte Carlo simulations that
 #' produce a PhiRhoZ.csv file to create an R dataframe for
@@ -18,13 +18,13 @@
 #'
 #' # not run...
 #' # library(rEDS)
-#' # in <- '/path/to/'
+#' # inDir <- '/path/to/'
 #' # fi <- 'myPhiRhoZ.csv'
-#' # df <- prepDataframeDtsaPhiRhoZ(in, fi)
+#' # df <- prepDataframeDtsaMcPhiRhoZ(inDir, fi)
 #' # print(head(df))
 #'
 #' @export
-prepDataframeDtsaPhiRhoZ <- function(inDir, fName='PhiRhoZ.csv'){
+prepDataframeDtsaMcPhiRhoZ <- function(inDir, fName='PhiRhoZ.csv'){
   # Karl Broman says "your closest collaborator is you, three years from now,
   # and you don't respond to email." These comments are for future me and
   # anyone else...
