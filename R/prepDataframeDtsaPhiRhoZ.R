@@ -3,11 +3,12 @@
 #' Use the results from DTSA-II Monte Carlo simulations that
 #' produce a PhiRhoZ.csv file to create an R dataframe for
 #' plotting. Note: this file is TAB delimited and has two
-#' header lines and needs some cleanup...
+#' header lines and so needs some cleanup...
 #'
-#' @param phiRhoZFile The path to the PhiRhoZ.csv file.
+#' @param inDir A string containing the directory with the
+#' PhiRhoZ.csv file. Terminate with a '/' !!!
 #'
-#' @param verbose Boolean flag. Default FALSE. Print info if TRUE.
+#' @param fName A string. Default is 'PhiRhoZ.csv'
 #'
 #' @return a dataframe
 #'
@@ -17,24 +18,40 @@
 #'
 #' # not run...
 #' # library(rEDS)
-#' # fi <- '/path/to/PhiRhoX.csv'
-#' # df <- prepDataframeDtsaPhiRhoZ(fi)
+#' # in <- '/path/to/'
+#' # fi <- 'myPhiRhoZ.csv'
+#' # df <- prepDataframeDtsaPhiRhoZ(in, fi)
 #' # print(head(df))
 #'
 #' @export
-prepDataframeDtsaPhiRhoZ <- function(phiRhoZFile, nSkip=11, verbose=FALSE){
-  res <- readLines(phiRhoZFile)
-  rawNames <-res[1]
-  colN <- unlist(strsplit(rawNames, '\t'))
-  if(verbose) print(head(colN))
-  # DTSA PhiRhoZ.csv files are really tab delimnited and have two header lines
-  df <- read.csv(phiRhoZFile, header = FALSE, skip=nSkip, sep = '\t')
-  names(df) <- colN
-  if(verbose) print(head(df))
-  # average the min and max ramge to get the midpoint and subtract 5000 (a working distance?)
-  z <- 0.5*(df[,1] + df[,2]) - 5000.0
-  df[,1] <- z
-  colnames(df)[1] <- "Z [\U00B5m]"
-  df <- df[,-2]
+prepDataframeDtsaPhiRhoZ <- function(inDir, fName='PhiRhoZ.csv'){
+  # Karl Broman says "your closest collaborator is you, three years from now,
+  # and you don't respond to email." These comments are for future me and
+  # anyone else...
+  #
+  # Sometimes I rename the default, so make it flexible...
+  fi <- sprintf('%s%s', inDir, fName)
+  li <- readLines(fi, n=1)
+  # generate the column names from the file
+  nam <- unlist(strsplit(li,'\t'))
+  # read the raw data, skipping the names and the units. It is tab delimited...
+  df <-read.csv(fi, header=FALSE, sep='\t', skip=2, col.names=nam)
+  # the values are ALWAYS 0 before df$Max = 5000
+  df <- df[df$Max > 5000.,]
+  # the last half of the columns are in terms of intensity.
+  # The next three lines delete these.
+  lo <- 0.5*ncol(df)
+  hi <- ncol(df)
+  s <- seq(lo,hi)
+  df <- df[, -s]
+  # we really want the midpoint of the bins, so we generate it and replace the
+  # first two colums with the midpoint
+  x <- 0.5*(df$Min + df$Max)-5000.0
+  # print(head(x))
+  df <- df[, -1]
+  df$Max <- x
+  names(df)[1] <- "Z.\U00B5m"
+  # reset the rownames and then return the dataframe.
+  rownames(df) <- NULL
   return(df)
 }
