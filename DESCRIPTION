@@ -1,6 +1,6 @@
 Package: rEDS
 Title: Process X-ray EDS spectra
-Version: 0.0.1.3
+Version: 0.0.1.4
 Authors@R: person("Minter", "John", email= "jrminter@gmail.com", role = c("aut", "cre"))
 Maintainer: John Minter <jrminter@gmail.com>
 Description: Process X-ray EDS hyperspectral data frames and spectra

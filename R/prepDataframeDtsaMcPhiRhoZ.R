@@ -30,28 +30,30 @@ prepDataframeDtsaMcPhiRhoZ <- function(inDir, fName='PhiRhoZ.csv'){
   # anyone else...
   #
   # Sometimes I rename the default, so make it flexible...
-  fi <- sprintf('%s%s', inDir, fName)
-  li <- readLines(fi, n=1)
-  # generate the column names from the file
-  nam <- unlist(strsplit(li,'\t'))
-  # read the raw data, skipping the names and the units. It is tab delimited...
-  df <-read.csv(fi, header=FALSE, sep='\t', skip=2, col.names=nam)
-  # the values are ALWAYS 0 before df$Max = 5000
-  df <- df[df$Max > 5000.,]
-  # the last half of the columns are in terms of intensity.
-  # The next three lines delete these.
-  lo <- 0.5*ncol(df)
-  hi <- ncol(df)
-  s <- seq(lo,hi)
-  df <- df[, -s]
-  # we really want the midpoint of the bins, so we generate it and replace the
-  # first two colums with the midpoint
-  x <- 0.5*(df$Min + df$Max)-5000.0
-  # print(head(x))
-  df <- df[, -1]
-  df$Max <- x
-  names(df)[1] <- "Z.um"
-  # reset the rownames and then return the dataframe.
+  fi <- sprintf("%s%s", inDir, fName)
+  dataLines <- readLines(fi)
+  dataLines <- gsub( "\t", ",", dataLines )
+  dataLines <- dataLines[-c(2:11)]
+  fBase <- strsplit(fName, ".", TRUE)[[1]][1]
+  fOut <- sprintf("%s%s-fixed.csv", inDir, fBase)
+  sink(fOut)
+  for (l in dataLines){
+    cat(l)
+    cat('\n')
+  }
+  sink()
+  df <-read.csv(file=fOut,header = TRUE, as.is=TRUE)
+  z <- 0.5*(df$Min+df$Max)-5000.
+  df$Max <- z
+  df <-df[, -1]
+  nam <- names(df)
+  nam[1] <- "Z.um"
+  names(df) <- nam
+  n <- ncol(df)
+  n <- round(n/2,0)+1
+  df <-df[,1:n]
+  fOut <- sprintf("%s%s-final.csv", inDir, fBase)
+  write.csv(df, file=fOut, row.names = FALSE)
   rownames(df) <- NULL
   return(df)
 }
