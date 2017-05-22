@@ -43,6 +43,7 @@ prepDataframeDtsaMcPhiRhoZ <- function(inDir, fName='PhiRhoZ.csv'){
   }
   sink()
   df <-read.csv(file=fOut,header = TRUE, as.is=TRUE)
+  if (file.exists(fOut)) file.remove(fOut)
   z <- 0.5*(df$Min+df$Max)-5000.
   df$Max <- z
   df <-df[, -1]
