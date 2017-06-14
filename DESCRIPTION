@@ -1,6 +1,6 @@
 Package: rEDS
 Title: Process X-ray EDS spectra
-Version: 0.0.1.4
+Version: 0.0.1.5
 Authors@R: person("Minter", "John", email= "jrminter@gmail.com", role = c("aut", "cre"))
 Maintainer: John Minter <jrminter@gmail.com>
 Description: Process X-ray EDS hyperspectral data frames and spectra
@@ -44,9 +44,11 @@ Collate:
     'makeImageFromAvgSlice.R'
     'makeAvgSlicePlots.R'
     'makeAvgSliceTiff.R'
+    'plotCasinoPrz.R'
     'plotDataCube.R'
     'plotSpectrum.R'
     'prepDataframeDtsaMcPhiRhoZ.R'
+    'readSingleCasinoPrz.R'
     'rsPlotPdf.R'
     'rsPlotPng.R'
 RoxygenNote: 6.0.1
