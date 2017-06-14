@@ -29,16 +29,16 @@
 #' # fn <- "prz-Zn-03kV"
 #' # df <- readSingleCasinoPrz(dn, sprintf("%s.txt", fn))
 #' # print(head(df))
-#' # plt <- plotCasinoPrz(df, "Zn L3-M5", 3.0, z.min=0, z.max=.75, rz.step=0.05)
+#' # plt <- plotCasinoPrz(df, "Zn L3-M5", 3.0, z.min=0, z.max=.75, prz.step=0.05)
 #' # print(plt)
-
-
+#'
+#' @export
 
 plotCasinoPrz <- function(df, name, e0,
                           z.min=0, z.max=2.0,
                           prz.max=2.75, prz.step=0.1){
   library(ggplot2)
-  print(head(df))
+
   lab1 <- "Gen"
   lab2 <- "Emi"
   lab3 <- sprintf("%s \u03D5(\u03C1z)", name)
