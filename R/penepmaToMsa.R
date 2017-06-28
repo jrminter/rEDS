@@ -38,8 +38,12 @@ penepmaToMsa <- function(datFile, msaFile, e0, title, owner, bDebug=FALSE){
   # the zero-offset is the first eV value
   df$eV <-round(df$eV, 0)
   zo <- df$eV[1]
-  df$intens <- round(1e10*df$intens, 1)
-  df$unc <- round(1e10*df$unc, 1)
+  df$intens <- round(1e12*df$intens, 1)
+  df$unc <- round(1e12*df$unc, 1)
+
+  df$intens <- 0.001*df$intens
+  df$unc <- 0.001*df$unc
+
 
   if(bDebug == TRUE){
     print(head(df))
@@ -71,10 +75,10 @@ penepmaToMsa <- function(datFile, msaFile, e0, title, owner, bDebug=FALSE){
   cat('#YUNITS      : counts\n')
   cat('#DATATYPE    : Y\n')
 
-  li <- sprintf('#XPERCHAN    : %.2f\n', df$eV[2] - df$eV[1])
+  li <- sprintf('#XPERCHAN    : %.2f\n', max(df$eV)/as.numeric(npts))
   cat(li)
 
-  xo <- sprintf("#OFFSET      : %.2f\n", df$eV[1])
+  # xo <- sprintf("#OFFSET      : %.2f\n", 0.0)
   # cat(xo)
   cat("#OFFSET      : 0.0\n")
 
@@ -89,8 +93,8 @@ penepmaToMsa <- function(datFile, msaFile, e0, title, owner, bDebug=FALSE){
 
   i <- 1
   while(i < (lData-1)){
-    cts <- round(df$intens[i], 0)
-    li <- sprintf('%d, \n', cts)
+    cts <- round(df$intens[i], 4)
+    li <- sprintf('%.4f, \n', cts)
     cat(li)
     i = i + 1
   }
