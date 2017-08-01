@@ -55,7 +55,7 @@ plotCasinoPrz <- function(df, name, e0,
              x = .95*z.max, y = (0.90*prz.max),
              size = 5, colour = "red") +
     ylab(label=lab3) +
-    xlab("depth [µm]") +
+    xlab("depth [\U00B5m]") +
     scale_x_continuous(breaks = seq(from = z.min,
                                     to = z.max,
                                     by = prz.step),
