@@ -50,9 +50,9 @@ prepDataframeDtsaMcPhiRhoZ <- function(inDir, fName='PhiRhoZ.csv'){
   nam <- names(df)
   nam[1] <- "Z.um"
   names(df) <- nam
-  n <- ncol(df)
-  n <- round(n/2,0)+1
-  df <-df[,1:n]
+  # n <- ncol(df)
+  # n <- round(n/2,0)+1
+  # df <-df[,1:n]
   fOut <- sprintf("%s%s-final.csv", inDir, fBase)
   write.csv(df, file=fOut, row.names = FALSE)
   rownames(df) <- NULL
