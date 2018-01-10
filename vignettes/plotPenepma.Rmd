@@ -1,0 +1,79 @@
+---
+title: "Plot Penepma Spectra"
+author: "John Minter"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Plot Penepma Spectra}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Our objective is to convert an output spectrum from a Monte Carlo
+simulation using PENEPMA into a R dataframe for analysis and other
+processing.
+
+
+## Load a spectrum
+
+First we get our exemplar file.
+
+```{r}
+spcPath <- system.file("extdata", "pe-spect-01.dat", package = "rEDS")
+spcPath
+```
+
+Then we create an R dataframe using the `penepmaSpcToDF` function.
+
+```{r, message=FALSE}
+library(rEDS)
+library(pander)
+library(ggplot2)
+
+df <- penepmaSpcToDF(spcPath)
+
+pander(head(df))
+```
+and the tail
+
+```{r, message=FALSE}
+pander(tail(df))
+```
+
+```{r}
+pander(summary(df))
+```
+
+
+Now we are ready to plot the spectrum. There is a very large dynamic
+range for both the **probability density** and the **uncertainty**.
+Penepma sets a lower limit for data at **1.0e-35**. Missing values are
+set to zero. We want to remove values from the dataframe that are
+below a useful limit. We do this below and plot a copy of the 
+dataframe that is limited to the useful values.
+
+```{r, fig.width=7}
+dfCropY <- df[df$pd > 1.0e-11, ]
+plt <- ggplot(dfCropY, aes(x = keV, y = pd)) +
+       geom_line() + 
+       scale_x_continuous(breaks = seq(from = 0, to = 15, by = 1),
+                          limits = c(0,15)) +
+       scale_y_log10(limits = c(1e-11,1e-05)) +
+       xlab(label="X-ray energy [keV]") +
+       ylab(label="probability density") +
+       # (1/(eV*sr*electron)") +
+       ggtitle('PENEPMA simulation of Corning EagleXG glass at 15 kV') +
+       theme(axis.text=element_text(size=12),
+             axis.title=element_text(size=12),
+             # center the title
+             plot.title = element_text(hjust = 0.5))
+print(plt)
+
+```

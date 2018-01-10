@@ -4,17 +4,21 @@ author: "John Minter"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Plot MSA Spectra}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-Describe an MSA spectrum....
-
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
 ## Load a spectrum
 
-First we get our exemplar file.
+First we get our exemplar **.msa** format spectrum file.
 
 ```{r}
 strFile <- system.file("extdata", "Benitoite.msa", package = "rEDS")
