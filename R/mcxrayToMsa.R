@@ -48,7 +48,7 @@ mcxrayToMsa <- function(datFile, msaFile, e0, pc, lt,
   df$int <- round(df$int, int.dig)
   # print(head(df))
   # print(tail(df))
-  print(max(df$int))
+  # print(max(df$int))
 
   sink(msaFile)
   cat('#FORMAT      : EMSA/MAS Spectral Data File\n')
