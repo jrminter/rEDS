@@ -1,0 +1,70 @@
+---
+title: "Prepare a MSA spectrum from MCXRAY output"
+author: "John Minter"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Prepare a MSA spectrum from MCXRAY output}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Our objective is to convert to an .msa spectrum the output from a Monte
+Carlo simulation using MCXRAY of the X-Ray EDS spectrum from 20 nm of
+C on 50 nm of SiO~2~ on bulk Si at 3 kV. We'll copy this spectrum to
+our **HOME** directory along with a .msa spectrum produced by a Monte
+Carlo simulation performed using DTSA-II. This will permit us to compare
+the two simulations.
+
+
+## Load a spectrum
+
+First we get our exemplar file from the data included with the R
+package.
+
+```{r}
+inF <- system.file("extdata", "20nm-C-50nm-SiO2-Si-03kV.txt",
+                    package = "rEDS")
+inF
+```
+
+Then we create our MSA spectrum the `mcxrayToMsa` function.
+
+```{r, message=FALSE}
+library(rEDS)
+
+ouNa <- "20nm-C-50nm-SiO2-Si-03kV.msa"
+
+homDir   <- Sys.getenv('HOME')
+homDir   <- gsub("\\\\", "/", homDir)
+ouF      <- sprintf("%s/%s", homDir, ouNa)
+
+mcxrayToMsa(inF, ouF, 3.0, 1.0, 100.0,
+            '20nm-C-50nm-SiO2-Si-03kV', 'jrminter', TRUE)
+
+print(ouF)
+```
+
+Now copy the DTSA file from the data included with the R package
+
+```{r}
+dtsaFN <- "20-nm-C-on-50-nm-SiO2-on-Si-at-3-kV-20000-Traj.msa"
+inDF <- system.file("extdata", dtsaFN, package = "rEDS")
+ouDtsaFN <- sprintf("%s/%s", homDir, dtsaFN)
+
+print(ouDtsaFN)
+
+file.copy(inDF, ouDtsaFN, TRUE, FALSE, TRUE, TRUE)
+```
+
+Now open and annotate the spectra using DTSA-II. You can export
+publication quality output that may be 'tweaked' using gnuplot.
+
+
