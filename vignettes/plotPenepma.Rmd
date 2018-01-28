@@ -60,12 +60,11 @@ below a useful limit. We do this below and plot a copy of the
 dataframe that is limited to the useful values.
 
 ```{r, fig.width=7}
-dfCropY <- df[df$pd > 1.0e-11, ]
-plt <- ggplot(dfCropY, aes(x = keV, y = pd)) +
+plt <- ggplot(df, aes(x = keV, y = pd)) +
        geom_line() + 
        scale_x_continuous(breaks = seq(from = 0, to = 15, by = 1),
                           limits = c(0,15)) +
-       scale_y_log10(limits = c(1e-11,1e-05)) +
+       # scale_y_log10(limits = c(1e0,1e-06) +
        xlab(label="X-ray energy [keV]") +
        ylab(label="probability density") +
        # (1/(eV*sr*electron)") +
