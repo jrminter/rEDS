@@ -79,7 +79,7 @@ penepmaToMsa <- function(datFile,
 
     eStart <- 1000.0*df$keV[1]
     eEnd <- 1000.0*df$keV[nrow(df)]
-    deltaE <- (eEnd-eStart)/(as.numeric(nrow(df)))
+    deltaE <- (eEnd-eStart)/(as.numeric(nrow(df)-1.0))
 
     li <- sprintf('#XPERCHAN    : %.2f\n', deltaE)
     cat(li)
