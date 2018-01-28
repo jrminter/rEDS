@@ -13,7 +13,7 @@
 #'
 #' # not run...
 #' # library(rEDS)
-#' # fiPath <- 'myPhiRhoZ.csv'
+#' # fiPath <- '/pat/to/pe-spect-01.dat'
 #' # df <- penepmaSpcToDF(fiPath)
 #' # print(head(df))
 #'
@@ -26,5 +26,10 @@ penepmaSpcToDF <- function(spcPath){
   keV <- df[,1]/1000.
   df[,1] <- keV
   names(df) <- c('keV', 'pd', 'unc')
+  df <- df[df$pd > 1.0e-35, ]
+  mv <- min(df$pd)
+  df$pd <- df$pd/mv
+  df$unc <- df$unc/mv
+  rownames(df) <- c()
   return(df)
 }
