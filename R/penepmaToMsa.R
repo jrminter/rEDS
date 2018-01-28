@@ -37,7 +37,7 @@ penepmaToMsa <- function(datFile,
                            title,
                            owner,
                            bDebug=FALSE){
-    df <- read.table(spcPath, header = FALSE, sep=" ", skip=12)
+    df <- read.table(datFile, header = FALSE, sep=" ", skip=12)
     df <- df[, c(4,6,8)]
     keV <- df[,1]/1000.
     df[,1] <- keV
