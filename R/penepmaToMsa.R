@@ -84,9 +84,9 @@ penepmaToMsa <- function(datFile,
     li <- sprintf('#XPERCHAN    : %.2f\n', deltaE)
     cat(li)
 
-    # xo <- sprintf("#OFFSET      : %.2f\n", 0.0)
-    # cat(xo)
-    cat("#OFFSET      : 0.0\n")
+    xo <- sprintf("#OFFSET      : %.2f\n", eStart)
+    cat(xo)
+    # cat("#OFFSET      : 0.0\n")
 
     ev <- sprintf('#BEAMKV      : %g\n', e0)
     cat(ev)
