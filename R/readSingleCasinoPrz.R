@@ -6,7 +6,7 @@
 #' @param dirName A string containing the directory with the
 #' PhiRhoZ.txt file. Do NOT terminate with a '/' !!!
 #'
-#' @param fName A string. The base file name. See the call
+#' @param filName A string. The base file name. See the call
 #' example below.
 #'
 #' @param bTrunc A boolean. Default TRUE. Truncate zero values for Gen.

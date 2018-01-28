@@ -38,6 +38,7 @@ library(pander)
 library(ggplot2)
 
 df <- penepmaSpcToDF(spcPath)
+rownames(df) <- c()
 
 pander(head(df))
 ```
@@ -64,7 +65,7 @@ plt <- ggplot(df, aes(x = keV, y = pd)) +
        geom_line() + 
        scale_x_continuous(breaks = seq(from = 0, to = 15, by = 1),
                           limits = c(0,15)) +
-       # scale_y_log10(limits = c(1e0,1e-06) +
+       scale_y_log10(limits = c(1.0,1.0e+6)) +
        xlab(label="X-ray energy [keV]") +
        ylab(label="probability density") +
        # (1/(eV*sr*electron)") +
@@ -73,6 +74,7 @@ plt <- ggplot(df, aes(x = keV, y = pd)) +
              axis.title=element_text(size=12),
              # center the title
              plot.title = element_text(hjust = 0.5))
+       
 print(plt)
 
 ```

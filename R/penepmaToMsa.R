@@ -9,7 +9,7 @@
 #'
 #' @param msaFile string - path fpr the output 'my-spec.msa' file.
 #'
-#' @param eo number - the voltage in kV for the simulation
+#' @param e0 number - the voltage in kV for the simulation
 #'
 #' @param title string - label for the spectrum
 #'
@@ -31,73 +31,76 @@
 #' # penepmaToMsa(inF, ouF, 15, 'simulation', 'jrminter')
 #'
 #' @export
-penepmaToMsa <- function(datFile, msaFile, e0, title, owner, bDebug=FALSE){
-  df <- read.table(datFile, header=FALSE, skip=12, sep=" ")
-  df <- df[, -c(1,2,3,5,7)]
-  names(df) <- c('eV', 'intens', 'unc')
-  # the zero-offset is the first eV value
-  df$eV <-round(df$eV, 0)
-  zo <- df$eV[1]
-  df$intens <- round(1e12*df$intens, 1)
-  df$unc <- round(1e12*df$unc, 1)
-
-  df$intens <- 0.001*df$intens
-  df$unc <- 0.001*df$unc
-
-
-  if(bDebug == TRUE){
-    print(head(df))
-    print(tail(df))
-  }
+penepmaToMsa <- function(datFile,
+                           msaFile,
+                           e0,
+                           title,
+                           owner,
+                           bDebug=FALSE){
+    df <- read.table(spcPath, header = FALSE, sep=" ", skip=12)
+    df <- df[, c(4,6,8)]
+    keV <- df[,1]/1000.
+    df[,1] <- keV
+    names(df) <- c('keV', 'pd', 'unc')
+    df <- df[df$pd > 1.0e-35, ]
+    mv <- min(df$pd)
+    df$pd <- df$pd/mv
+    df$unc <- df$unc/mv
+    rownames(df) <- c()
 
 
+    if(bDebug == TRUE){
+      print(head(df))
+      print(tail(df))
+    }
 
-  sink(msaFile)
-  cat('#FORMAT      : EMSA/MAS Spectral Data File\n')
-  cat('#VERSION     : 1.0\n')
-  li <- sprintf('#TITLE       : %s\n', title)
-  cat(li)
-  today <- Sys.Date()
-  today <- format(today, format="%d-%b-%Y")
-  li <- sprintf('#DATE        : %s\n', today)
-  cat(li)
-  ti <- Sys.time()
-  ti <- format(ti, "%H:%M:%S")
-  li <- sprintf('#TIME        : %s\n', ti)
-  cat(li)
-  li <- sprintf('#OWNER       : %s\n', owner)
-  cat(li)
-  npts <- length(df$eV)
-  li <- sprintf('#NPOINTS     : %s\n', npts)
-  cat(li)
-  cat('#NCOLUMNS    : 1\n')
-  cat('#XUNITS      : eV\n')
-  cat('#YUNITS      : counts\n')
-  cat('#DATATYPE    : Y\n')
-
-  li <- sprintf('#XPERCHAN    : %.2f\n', max(df$eV)/as.numeric(npts))
-  cat(li)
-
-  # xo <- sprintf("#OFFSET      : %.2f\n", 0.0)
-  # cat(xo)
-  cat("#OFFSET      : 0.0\n")
-
-  ev <- sprintf('#BEAMKV      : %g\n', e0)
-  cat(ev)
-
-  cat('#XLABEL      : Energy [eV]\n')
-  cat('#YLABEL      : Counts\n')
-  cat('#SPECTRUM    : \n')
-
-  lData <- nrow(df)
-
-  i <- 1
-  while(i < (lData-1)){
-    cts <- round(df$intens[i], 4)
-    li <- sprintf('%.4f, \n', cts)
+    sink(msaFile)
+    cat('#FORMAT      : EMSA/MAS Spectral Data File\n')
+    cat('#VERSION     : 1.0\n')
+    li <- sprintf('#TITLE       : %s\n', title)
     cat(li)
-    i = i + 1
-  }
-  cat('#ENDOFDATA   : \n')
-  sink()
+    today <- Sys.Date()
+    today <- format(today, format="%d-%b-%Y")
+    li <- sprintf('#DATE        : %s\n', today)
+    cat(li)
+    ti <- Sys.time()
+    ti <- format(ti, "%H:%M:%S")
+    li <- sprintf('#TIME        : %s\n', ti)
+    cat(li)
+    li <- sprintf('#OWNER       : %s\n', owner)
+    cat(li)
+    npts <- length(df$keV)
+    li <- sprintf('#NPOINTS     : %s\n', npts-2)
+    cat(li)
+    cat('#NCOLUMNS    : 2\n')
+    cat('#XUNITS      : eV\n')
+    cat('#YUNITS      : counts\n')
+    cat('#DATATYPE    : XY\n')
+
+    li <- sprintf('#XPERCHAN    : %.2f\n', max(1000.*df$keV)/as.numeric(npts))
+    cat(li)
+
+    # xo <- sprintf("#OFFSET      : %.2f\n", 0.0)
+    # cat(xo)
+    cat("#OFFSET      : 0.0\n")
+
+    ev <- sprintf('#BEAMKV      : %g\n', e0)
+    cat(ev)
+
+    cat('#XLABEL      : Energy [eV]\n')
+    cat('#YLABEL      : Counts\n')
+    cat('#SPECTRUM    : \n')
+
+    lData <- nrow(df)
+
+    i <- 1
+    while(i < lData){
+      eV <- round(1000.0*df$keV[i])
+      cts <- round(df$pd[i], 1)
+      li <- sprintf('%.1f, %.1f \n', eV, cts)
+      cat(li)
+      i = i + 1
+    }
+    cat('#ENDOFDATA   : \n')
+    sink()
 }

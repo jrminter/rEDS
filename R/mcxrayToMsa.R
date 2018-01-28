@@ -9,7 +9,7 @@
 #'
 #' @param msaFile string - path fpr the output 'my-spec.msa' file.
 #'
-#' @param eo number - the voltage in kV for the simulation
+#' @param e0 number - the voltage in kV for the simulation
 #'
 #' @param pc number - the probe current in nanoamps
 #'
