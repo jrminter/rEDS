@@ -77,7 +77,11 @@ penepmaToMsa <- function(datFile,
     cat('#YUNITS      : counts\n')
     cat('#DATATYPE    : XY\n')
 
-    li <- sprintf('#XPERCHAN    : %.2f\n', max(1000.*df$keV)/as.numeric(npts))
+    eStart <- 1000.0*df$keV[1]
+    eEnd <- 1000.0*df$keV[nrow(df)]
+    deltaE <- (eEnd-eStart)/(as.numeric(nrow(df)))
+
+    li <- sprintf('#XPERCHAN    : %.2f\n', deltaE)
     cat(li)
 
     # xo <- sprintf("#OFFSET      : %.2f\n", 0.0)
