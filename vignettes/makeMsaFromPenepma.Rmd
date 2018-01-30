@@ -39,5 +39,5 @@ homDir <- gsub("\\\\", "/", homDir)
 outFil <- sprintf("%s/%s", homDir, 'Desktop/Eagle-XG-glass-15kV.msa' ) 
 outFil
 
-penepmaToMsa(spcPath, outFile, 15.0, "Eagle-XG glass")
+penepmaToMsa(spcPath, outFil, 15.0, "Eagle-XG glass")
 ```
