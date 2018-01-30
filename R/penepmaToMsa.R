@@ -32,12 +32,12 @@
 #'
 #' @export
 penepmaToMsa <- function(datFile,
-                           msaFile,
-                           e0,
-                           title,
+                         msaFile,
+                         e0,
+                          title,
                            owner="Penepma",
                            bDebug=FALSE){
-    df <- read.table(inF, header = FALSE, sep=" ", skip=12)
+    df <- read.table(datFile, header = FALSE, sep=" ", skip=12)
     df <- df[, c(4,6,8)]
 
     names(df) <- c('eV', 'pd', 'unc')

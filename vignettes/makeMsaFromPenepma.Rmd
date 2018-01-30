@@ -1,0 +1,43 @@
+---
+title: "Make a .msa spectrum from a Penepma Spectrum"
+author: "John Minter"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Make a .msa spectrum from a Penepma Spectrum}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Our objective is to convert an output spectrum from a Monte Carlo
+simulation using PENEPMA into a .msa spectrum for plotting in DTSA-II.
+
+
+## Load a spectrum
+
+First we get our exemplar file.
+
+```{r}
+spcPath <- system.file("extdata", "pe-spect-01.dat", package = "rEDS")
+spcPath
+```
+
+Then we create the .msa file using the `penepmaToMsa` function. We will write it to our Desktop.
+
+```{r, message=FALSE}
+library(rEDS)
+
+homDir <- Sys.getenv('HOME')
+homDir <- gsub("\\\\", "/", homDir)
+outFil <- sprintf("%s/%s", homDir, 'Desktop/Eagle-XG-glass-15kV.msa' ) 
+outFil
+
+penepmaToMsa(spcPath, outFile, 15.0, "Eagle-XG glass")
+```
