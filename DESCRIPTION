@@ -39,6 +39,8 @@ Collate:
     'flipMatrix.R'
     'getChanInt.R'
     'getSumSliceFromImageCube.R'
+    'ggplotSpectrumLinY.R'
+    'ggplotSpectrumLogY.R'
     'imageDataCube.R'
     'lookup.R'
     'mirrorMatrix.R'
@@ -56,4 +58,5 @@ Collate:
     'readSingleCasinoPrz.R'
     'rsPlotPdf.R'
     'rsPlotPng.R'
+    'singleMsaToDF.R'
 RoxygenNote: 6.0.1

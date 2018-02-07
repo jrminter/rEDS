@@ -21,24 +21,33 @@ knitr::opts_chunk$set(
 First we get our exemplar **.msa** format spectrum file.
 
 ```{r}
-strFile <- system.file("extdata", "Benitoite.msa", package = "rEDS")
-strFile
+library(rEDS)
+fi <- system.file("extdata", "Benitoite.msa", package = "rEDS")
+print(fi)
 ```
 
 Then we create a Spectrum object using the `SingleMSA` function.
 
 ```{r, message=FALSE}
-library(rEDS)
-
-spc <- singleMSA(spec=strFile, probecur=2.5)
-
-str(spc)
+spc <- singleMSA(fi, probecur=2.5)
 ```
 
 and now we can plot the spectrum.
 
 ```{r, fig.width=7}
-
 plot(spc, maxEnergy=10000, doLog=TRUE)
+```
 
+We can also create a ggplot with a linear intensity scale
+
+```{r, fig.width=7}
+plt <- ggplotSpectrumLinY(fi, "Benitoite", 0.2, 7.0, 1.0, 2.5)
+print(plt)
+```
+
+and with one with a logarithmic intensity
+
+```{r, fig.width=7}
+plt <-ggplotSpectrumLogY(fi, "Benitoite", 0.2, 7.0, 1.0, 2.5)
+print(plt)
 ```
