@@ -26,102 +26,71 @@
 #'
 #' @examples
 #' # Not run
-#' # inF <- '../penepma/pe-spect-01.dat'
-#' # ouF <- '../penepma/k411-15kV.msa'
+#' # inF <- system.file("extdata", "pe-spect-01.dat", package = "rEDS")
+#' # ouF <- './penepma/k411-15kV.msa'
 #' # penepmaToMsa(inF, ouF, 15, 'simulation')
 #'
 #' @export
 penepmaToMsa <- function(datFile,
                          msaFile,
                          e0,
-                          title,
-                           owner="Penepma",
-                           bDebug=FALSE){
-    df <- read.table(datFile, header = FALSE, sep=" ", skip=12)
-    df <- df[, c(4,6,8)]
+                         title,
+                         owner="Penepma",
+                         bDebug=FALSE){
 
-    names(df) <- c('eV', 'pd', 'unc')
+  ev_per_ch <- penepma_get_ev_per_ch(datFile)
+  df <- penepma_read_raw_data(datFile)
 
-    setLoToNA <- function(x){
-        if (x == 1.0e-35){
-            x <- NA
-        }
-        x
-    }
+  if(bDebug == TRUE){
+    print(head(df))
+    print(tail(df))
+    print("ev/ch")
+    print(ev_per_ch)
+  }
 
-    df$pd  <- as.numeric(lapply(df$pd, setLoToNA))
-    df$unc <- as.numeric(lapply(df$unc, setLoToNA))
+  sink(msaFile)
+  cat('#FORMAT      : EMSA/MAS Spectral Data File\n')
+  cat('#VERSION     : 1.0\n')
+  li <- sprintf('#TITLE       : %s\n', title)
+  cat(li)
+  today <- Sys.Date()
+  today <- format(today, format="%d-%b-%Y")
+  li <- sprintf('#DATE        : %s\n', today)
+  cat(li)
+  ti <- Sys.time()
+  ti <- format(ti, "%H:%M:%S")
+  li <- sprintf('#TIME        : %s\n', ti)
+  cat(li)
+  li <- sprintf('#OWNER       : %s\n', owner)
+  cat(li)
+  npts <- length(df$keV)
+  li <- sprintf('#NPOINTS     : %s\n', npts)
+  cat(li)
+  cat('#NCOLUMNS    : 1\n')
+  cat('#XUNITS      : keV\n')
+  cat('#YUNITS      : counts\n')
+  cat('#DATATYPE    : Y\n')
 
-    mv <- min(df$pd, na.rm = TRUE)
-    df$pd <- df$pd/mv
-    df$unc <- df$unc/mv
+  li <- sprintf('#XPERCHAN    : %.3f\n', ev_per_ch/1000.)
+  cat(li)
 
-    mv <- min(df$pd, na.rm = TRUE)
-    df$pd[is.na(df$pd)]  <- mv  # <- 1.0
+  cat("#OFFSET      : 0.0\n")
+  ev <- sprintf('#BEAMKV      : %g\n', e0)
+  cat(ev)
+  cat('#XLABEL      : Energy [keV]\n')
+  cat('#YLABEL      : Counts\n')
+  cat('#SPECTRUM    : \n')
 
-    mv <- min(df$unc, na.rm = TRUE)
-    df$unc[is.na(df$unc)] <- mv # 5.0
-
-    rownames(df) <- c()
-    d <- diff(df$eV)
-    deltaE <- median(d)
-
-
-    if(bDebug == TRUE){
-        print(head(df))
-        print(tail(df))
-        print("ev/ch")
-        print(deltaE)
-    }
-
-    sink(msaFile)
-    cat('#FORMAT      : EMSA/MAS Spectral Data File\n')
-    cat('#VERSION     : 1.0\n')
-    li <- sprintf('#TITLE       : %s\n', title)
+  lData <- nrow(df)
+  i <- 1
+  while(i < lData){
+    keV <- round(df$keV[i], 5)
+    cts <- round(100.0*df$mu[i], 2)
+    # li <- sprintf('%.1f, %.1f \n', eV, cts)
+    li <- sprintf('%.2f \n', cts)
     cat(li)
-    today <- Sys.Date()
-    today <- format(today, format="%d-%b-%Y")
-    li <- sprintf('#DATE        : %s\n', today)
-    cat(li)
-    ti <- Sys.time()
-    ti <- format(ti, "%H:%M:%S")
-    li <- sprintf('#TIME        : %s\n', ti)
-    cat(li)
-    li <- sprintf('#OWNER       : %s\n', owner)
-    cat(li)
-    npts <- length(df$eV)
-    li <- sprintf('#NPOINTS     : %s\n', npts)
-    cat(li)
-    cat('#NCOLUMNS    : 1\n')
-    cat('#XUNITS      : eV\n')
-    cat('#YUNITS      : counts\n')
-    cat('#DATATYPE    : Y\n')
-
-    li <- sprintf('#XPERCHAN    : %.3f\n', deltaE)
-    cat(li)
-
-    # xo <- sprintf("#OFFSET      : %.2f\n", eStart)
-    # cat(xo)
-    cat("#OFFSET      : 0.0\n")
-
-    ev <- sprintf('#BEAMKV      : %g\n', e0)
-    cat(ev)
-
-    cat('#XLABEL      : Energy [eV]\n')
-    cat('#YLABEL      : Counts\n')
-    cat('#SPECTRUM    : \n')
-
-    lData <- nrow(df)
-
-    i <- 1
-    while(i < lData){
-      eV <- round(1000.0*df$keV[i])
-      cts <- round(df$pd[i], 1)
-      # li <- sprintf('%.1f, %.1f \n', eV, cts)
-      li <- sprintf('%.1f \n', cts)
-      cat(li)
-      i = i + 1
-    }
-    cat('#ENDOFDATA   : \n')
-    sink()
+    i = i + 1
+  }
+  cat('#ENDOFDATA   : \n')
+  sink()
 }

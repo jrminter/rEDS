@@ -32,11 +32,6 @@ Then we create a Spectrum object using the `SingleMSA` function.
 spc <- singleMSA(fi, probecur=2.5)
 ```
 
-and now we can plot the spectrum.
-
-```{r, fig.width=7}
-plot(spc, maxEnergy=10000, doLog=TRUE)
-```
 
 We can also create a ggplot with a linear intensity scale
 
