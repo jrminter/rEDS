@@ -71,7 +71,7 @@ penepmaToMsa <- function(datFile,
   cat('#YUNITS      : counts\n')
   cat('#DATATYPE    : Y\n')
 
-  li <- sprintf('#XPERCHAN    : %.3f\n', ev_per_ch/1000.)
+  li <- sprintf('#XPERCHAN    : %.7f\n', ev_per_ch/1000.)
   cat(li)
 
   cat("#OFFSET      : 0.0\n")
