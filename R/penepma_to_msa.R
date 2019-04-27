@@ -28,15 +28,15 @@
 #' # Not run
 #' # inF <- system.file("extdata", "pe-spect-01.dat", package = "rEDS")
 #' # ouF <- './penepma/k411-15kV.msa'
-#' # penepmaToMsa(inF, ouF, 15, 'simulation')
+#' # penepma_to_msa(inF, ouF, 15, 'simulation')
 #'
 #' @export
-penepmaToMsa <- function(datFile,
-                         msaFile,
-                         e0,
-                         title,
-                         owner="Penepma",
-                         bDebug=FALSE){
+penepma_to_msa <- function(datFile,
+                           msaFile,
+                           e0,
+                           title,
+                           owner="Penepma",
+                           bDebug=FALSE){
 
   ev_per_ch <- penepma_get_ev_per_ch(datFile)
   df <- penepma_read_raw_data(datFile)

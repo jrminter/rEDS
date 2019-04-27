@@ -1,6 +1,6 @@
 Package: rEDS
 Title: Process X-ray EDS spectra
-Version: 0.0.1.16
+Version: 0.0.0.9016
 Authors@R: person("Minter", "John", email= "jrminter@gmail.com", role = c("aut", "cre"))
 Maintainer: John Minter <jrminter@gmail.com>
 Description: Process X-ray EDS hyperspectral data frames and spectra
@@ -51,11 +51,11 @@ Collate:
     'makeAvgSliceTiff.R'
     'mcxrayToMsa.R'
     'penepmaSpcToDF.R'
-    'penepmaToMsa.R'
     'penepma_get_ev_per_ch.R'
     'penepma_plot_spectrum.R'
     'penepma_plot_spectrum_logy.R'
     'penepma_read_raw_data.R'
+    'penepma_to_msa.R'
     'plotCasinoPrz.R'
     'plotDataCube.R'
     'plotSpectrum.R'
@@ -64,4 +64,5 @@ Collate:
     'rsPlotPdf.R'
     'rsPlotPng.R'
     'singleMsaToDF.R'
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
+Encoding: UTF-8
